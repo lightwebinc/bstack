@@ -26,7 +26,7 @@ whoever handed it over.
         ┌────────┐    ┌────────┐    ┌────────┐
         │ host A │    │ host B │    │ host C │
         └────┬───┘    └────┬───┘    └────┬───┘
-             │             │             │  free lookups, any host
+             │             │             │  lookups, any host
              ▼             ▼             ▼
   readers, verifying against headers they received themselves
 ```
