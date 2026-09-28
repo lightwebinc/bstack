@@ -12,23 +12,23 @@ on service; and readers verify what they are handed instead of trusting
 whoever handed it over.
 
 ```text
-                       ┌───────────┐
-                       │ publisher │
-                       └─────┬─────┘
-                             │  one flow, up
-                             ▼
-                  ┌─────────────────────┐
-                  │   the object plane  │
-                  │ (multicast delivery)│
-                  └──┬───────┬───────┬──┘
-                     │       │       │  every subscribed host,
-                     ▼       ▼       ▼  at the same moment
-                  ┌──────┐┌──────┐┌──────┐
-                  │host A││host B││host C│
-                  └──┬───┘└──┬───┘└──┬───┘
-                     │       │       │  free lookups, any host
-                     ▼       ▼       ▼
-             readers, verifying against headers they received themselves
+                     ┌───────────┐
+                     │ publisher │
+                     └─────┬─────┘
+                           │  one flow, up
+                           ▼
+        ┌────────────────────────────────────┐
+        │          the object plane          │
+        │        (multicast delivery)        │
+        └────┬─────────────┬─────────────┬───┘
+             │             │             │  every subscribed host,
+             ▼             ▼             ▼  at the same moment
+        ┌────────┐    ┌────────┐    ┌────────┐
+        │ host A │    │ host B │    │ host C │
+        └────┬───┘    └────┬───┘    └────┬───┘
+             │             │             │  free lookups, any host
+             ▼             ▼             ▼
+  readers, verifying against headers they received themselves
 ```
 
 Four roles, and two of them never meet. The publisher signs state and
