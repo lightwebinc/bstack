@@ -50,6 +50,10 @@ verification ever depends on that contact happening.
 - **Publish once.** One submission reaches every subscribed host at the
   same moment, complete and verbatim; reliability is a network feature,
   not application code.
+- **Unicast works today.** The same objects travel peer to peer to each
+  overlay host over ordinary connections, with a good block-header
+  source as the only hard dependency; multicast adds reliable
+  distribution with global reach.
 - **Hosts are replicas by transport.** No replication protocol, no
   coordinator, no origin server; adding a host is a subscription the
   publisher never learns about.
@@ -100,8 +104,11 @@ ships.
 
 These are applications. They use a BSV multicast network (the BEEF object
 plane, a bridge's submit facade and header lane, overlay hosts' lookup
-routes) and are not part of it. The network side is documented in its own
-papers:
+routes) and are not part of it. They do not require it to exist: every
+pattern runs over plain unicast to the hosts, peer to peer, with a good
+block-header source as the only hard dependency. The network is what
+makes distribution reliable and global. The network side is documented
+in its own papers:
 
 - _The overlay object plane: publish BEEF once, and every overlay hears_:
   <https://1bsv.net/papers/overlay-object-plane.pdf>
@@ -116,3 +123,7 @@ papers:
 [1bsv.net](https://1bsv.net)
 
 _Unbounded Solutions for a Small World™_
+
+_© 2026 Lightweb Inc. All rights reserved. This architecture is in
+rapid development; everything here is subject to change without
+notice._

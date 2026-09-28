@@ -146,7 +146,10 @@ verifies.
 
 **Limit.** Delivery at the same moment is an architecture property, not
 physics; ordering across subscribers is never promised, and applications
-that need total order put it in the data, with a chain.
+that need total order put it in the data, with a chain. And the language
+does not wait for the plane: every other pattern runs over plain
+unicast, publisher to host, with a good block-header source as the only
+hard dependency; the plane adds reliable distribution with global reach.
 
 ## 9. Hosts as replicas
 
