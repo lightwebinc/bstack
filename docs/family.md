@@ -1,11 +1,15 @@
 # The family
 
-One substrate, worn differently. Every application here is committed
-records on the multicast object plane: carriers from funding trees, roots
-binding sub-stores, mined state only where order matters, hosts as
-replicas, free base answers, and per-entity chains as the only
-serialisation points. There is no coordinator and no global lock anywhere
-in the family, and money is bilateral even when the data is broadcast.
+A shared starting kit, worn differently. Most members build from the
+same parts: committed records on the multicast object plane, carriers
+from funding trees, roots binding sub-stores, mined state only where
+order matters, hosts as replicas, free base answers, and per-entity
+chains as the serialisation points. There is no coordinator and no
+global lock anywhere in the family, and the delivery meter never
+carries the money: payment shapes run from point-to-point legs to
+bounties, multi-receiver splits, and flows an overlay itself settles.
+Each member keeps the parts that serve it, departs where its problem
+demands, and says so in its own specification.
 
 The patterns themselves are stated in [patterns.md](patterns.md).
 
@@ -23,13 +27,14 @@ The patterns themselves are stated in [patterns.md](patterns.md).
 
 ## The members
 
-**bfinger** is the built, running member and the worked example for
-everything else: ask what `user@domain` currently claims about itself and
-get an answer that proves itself, from any host, with payments derivable
-from the identity that just proved itself. Its repository carries the
-committed-record specification the whole family shares.
+**bfinger** is the first member to ship: ask what `user@domain`
+currently claims about itself and get an answer that proves itself, from
+any host, with payments derivable from the identity that just proved
+itself. Its repository carries the committed-record specification, the
+first written down; members that use it cite it, and members that need
+a different shape write their own.
 
-**blogs** applies the same substrate to volume. Producers append signed,
+**blogs** turns the shared kit toward volume. Producers append signed,
 numbered batches; every subscribed archive receives each batch at the
 same moment; one anchor per interval commits the set, so any archive
 proves completeness and any auditor proves time. A dropped batch is a
@@ -86,6 +91,7 @@ everything above it somewhere for content larger than a record. bmedia
 composes the append pattern, the storage market and the keyed renditions.
 bgateway stands apart, leaning only on the plane itself.
 
-bfinger is live; the rest are designs on the same substrate, and each
-member's repository is published when it ships, carrying its
-specification, its user guide and its limits stated in plain terms.
+bfinger is live, and it is the first, not the template. Each member
+stands on its own: its own repository, published when it ships, carrying
+its own specification, its own user guide, its own patterns where the
+shared language does not fit, and its limits stated in plain terms.

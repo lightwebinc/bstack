@@ -52,15 +52,20 @@ talks to another.
 - **Verification is sovereign.** Every object carries its proofs and is
   checked against the reader's own headers; a wrong answer is caught by
   arithmetic, not reputation.
-- **Users ride free.** Publishing costs miner fees and nothing else;
-  reading is free and anonymous on every conforming host, by
-  specification.
+- **Users ride free, and paid content sits above the floor.** Publishing
+  costs miner fees and nothing else, and the base answer is free and
+  anonymous on every conforming host. Everything above that floor is open
+  to pricing: richer questions, history, proofs, and content keyed so
+  that a payment releases the key.
 - **Receivers pay commodity rates.** Delivery is metered on elected
   volume, flat in the number of participants; each tier monetises the
   audience it owns.
-- **Money is bilateral.** The network carries records, never payments; a
-  payment derives a fresh destination from a verified identity key and
-  travels point to point.
+- **Money moves beside the data, in any shape the design earns.** The
+  delivery meter never bills a payment. The simplest leg derives a fresh
+  destination from a verified identity key and travels point to point,
+  and richer topologies are open: payments to many receivers, bounties
+  raced by competing providers, series of bounties funding ongoing
+  service, and interactive payments that an overlay's own rules settle.
 
 [docs/patterns.md](docs/patterns.md) states each pattern with its
 mechanics and its limits. [docs/family.md](docs/family.md) maps the
@@ -80,10 +85,12 @@ applications to the patterns they demonstrate.
 | bmedia | large sequenced objects to every edge at once, re-emitted onward |
 | bgateway | the carrier pattern applied to network traffic itself |
 
-bfinger is built and running against a live network; the rest of the
-family are designs that share its substrate, and their repositories are
-published as each member ships. A common library carries the shared
-machinery, so every member is a thin set of rules on the same foundation.
+bfinger shipped first, and it is only that: the first. Each member
+stands on its own, with its own repository, its own specification, and
+its own patterns where its problem demands them; the patterns here are a
+shared language, not a mould. A common library carries the machinery
+members choose to share, and repositories are published as each member
+ships.
 
 ## Where the network fits
 

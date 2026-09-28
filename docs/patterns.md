@@ -1,11 +1,13 @@
 # The patterns
 
 Each pattern below is stated with its intent, its mechanics, what it buys,
-and its limit. They compose: every application in the family is these
-patterns wearing different rules. The full argument, with the economics
-and the standards each pattern rests on, is the pattern paper at
-<https://1bsv.net/papers.html>; the first built demonstration of all of
-them together is [bfinger](https://github.com/lightwebinc/bfinger).
+and its limit. They compose, and they are a shared language rather than a
+mould: each member of the family combines them its own way and adds
+patterns of its own where its problem demands one. The full argument, with
+the economics and the standards each pattern rests on, is the pattern
+paper at <https://1bsv.net/papers.html>;
+[bfinger](https://github.com/lightwebinc/bfinger) is the first member to
+demonstrate many of them live.
 
 The foundations are ratified open BRC standards throughout: self-proving
 objects (BRC-62/74/95/96), overlay state (BRC-22/24/88), key derivation
@@ -174,29 +176,45 @@ member is refused, so no spelling manufactures a priceable alias of a
 free question.
 
 **What it buys.** A directory that can never become unreadable, and
-anonymous reads: a host that charged for the base answer would have to
-identify the payer.
+anonymous reads at the floor: a host that charged for the base answer
+would have to identify the payer. The floor is a floor, not a ceiling:
+richer questions, history, exports, availability proofs and keyed
+content are all open to pricing above it, and a paid read is
+attributable by nature, which is exactly why the anonymous base answer
+is pinned beneath it.
 
 **Limit.** A restriction is a property of bytes, and only encryption
 produces one; a service fee is a property of a socket. A priced lookup
 sells availability and convenience, never exclusivity, and must never be
-presented as access control.
+presented as access control. Paid content that must stay paid is keyed
+content: the payment releases the key.
 
-## 11. Bilateral money
+## 11. Money beside the data
 
-**Intent.** Keep payments off the broadcast path, and keep them private.
+**Intent.** Keep the delivery meter and the money separate, and leave
+every payment topology open.
 
 **Mechanics.** Any verified identity key is already a payable
-destination: the payer derives a fresh output from it, pays point to
-point, and tells the recipient how to claim it. The network carries
-records, never payments.
+destination. The simplest leg derives a fresh output from it, pays point
+to point, and tells the recipient how to claim it. Richer shapes build
+on the same substrate: a payment can travel inside a record and settle
+when the recipient claims it; a bounty can be published as a record that
+competing providers race to claim, singly or as a series funding ongoing
+service; a payment can split across many receivers; and an interactive
+payment flow can be settled by an overlay itself, its topic rules
+judging the outcome at every host identically.
 
-**What it buys.** A payment graph that is not a broadcast artifact, no
-address reuse, and revenue seams at every edge that faces an audience:
-priced question classes, subscriptions, markets across competing hosts.
+**What it buys.** No address reuse, a payment graph that is not a
+broadcast artifact unless the design wants it to be, and revenue seams
+at every edge that faces an audience: priced question classes,
+subscriptions, bounties, markets across competing hosts. The delivery
+meter never bills a payment as a payment.
 
-**Limit.** The recipient must be told, so notice delivery is a channel of
-its own; automating it is the message-box member's job.
+**Limit.** A broadcast shows everyone the same bytes, so a payment that
+must reach one party is derived per recipient, and a multi-party
+settlement puts its judging rules in the topic, where every host applies
+them alike. Notice delivery is a channel of its own; automating it is
+the message-box member's job.
 
 ## 12. Sovereign verification
 
