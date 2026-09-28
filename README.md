@@ -31,12 +31,16 @@ whoever handed it over.
   readers, verifying against headers they received themselves
 ```
 
-Four roles, and two of them never meet. The publisher signs state and
-submits it once. The network delivers it. A host indexes what arrived and
-answers questions. A reader asks any host, or several, and checks
-everything against block headers it received itself. The publisher never
-talks to a host, the reader never talks to the publisher, and no host
-talks to another.
+Four roles, and the pairs you would expect to be coupled never need to
+touch. The publisher signs state and submits it once. The network
+delivers it. A host indexes what arrived and answers questions. A reader
+asks any host, or several, and checks everything against block headers
+it received itself. Publishing never involves a host directly, reading
+never involves the publisher, and no host talks to another. That
+separation is a property of delivery, not a wall between the parties: a
+reader can always approach a publisher directly, to arrange exclusive
+access to keyed content, for instance. Nothing in delivery or
+verification ever depends on that contact happening.
 
 ## The patterns in one breath
 
