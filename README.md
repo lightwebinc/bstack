@@ -81,7 +81,7 @@ Two shared pieces sit beside the members:
 | Piece | What it is | Status |
 | --- | --- | --- |
 | [bcommon](https://github.com/lightwebinc/bcommon) | the Go library, with a TypeScript package for host modules, that carries the machinery members choose to share, and the registry of every member's on-chain identifiers | repository (public); pre-1.0, tagged `v0.1.0` |
-| [bflow](https://github.com/lightwebinc/bflow) | pay-per-flow: bilateral payment channels that settle metered usage | repository (private); proof of concept, local only |
+| [bflow](https://github.com/lightwebinc/bflow) | pay-per-flow: bilateral payment channels that settle metered usage | repository (private); proof of concept, loopback networking only |
 
 [docs/family.md](docs/family.md) maps each member to the patterns it
 demonstrates and to the members it leans on.

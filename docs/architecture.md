@@ -290,7 +290,7 @@ object plane as a payment. Money moves beside the data.
 | Shape | What moves | Where it exists today |
 | --- | --- | --- |
 | Point to point | a fresh output derived from a verified identity key (BRC-29), plus a notice the recipient claims it with | built in bfinger (`pay`, `receive`); notice delivery is by hand until a message box carries it |
-| Payment channel | a funded 2-of-2 per leg, cumulative commitments the payee gates service on, settlement committing a Merkle root of the usage | bflow, proof of concept, local only |
+| Payment channel | a funded 2-of-2 per leg, cumulative commitments the payee gates service on, settlement committing a Merkle root of the usage | bflow, proof of concept (loopback networking only) |
 | Funded gate | a payee's funded-state feed that a service reads before it serves | bflow serves it; bgateway's router reads it in a `funded` policy rule |
 | Priced question class | a price in front of a question other than the base one | designed; bfinger's lookup service already sorts questions into classes and refuses unknown members |
 | Keyed content | ciphertext on the plane, a payment that releases the key (BRC-369) | designed |
