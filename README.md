@@ -66,7 +66,7 @@ first. Repositories are published as each member ships.
 
 | Member | One line | Status |
 | --- | --- | --- |
-| [bfinger](https://github.com/lightwebinc/bfinger) | ask what a name claims about itself, get an answer that proves itself | repository (private); live, end to end against a two-host overlay |
+| [bfinger](https://github.com/lightwebinc/bfinger) | ask what a name claims about itself, get an answer that proves itself | repository (private, public after the pattern paper); live on mainnet, with a public host |
 | blogs | append-only streams to many archives at once, with per-interval completeness proofs | designed |
 | bbox | a message box replicated by the network, with payments travelling inside envelopes | designed |
 | borg | organisations: membership with real revocation, group changes in an unforgeable order, keys that rotate when someone leaves | designed |
