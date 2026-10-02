@@ -23,7 +23,6 @@ The patterns themselves are stated in [patterns.md](patterns.md).
 | bchat | a proof on every message: a company, its auditor and its partner hold the same bytes by construction |
 | bstore | storage as a market: publish once, providers compete to hold, availability proofs as priced questions |
 | bmedia | large sequenced objects to every edge at once, re-emitted onto a site's own multicast domain |
-| bgateway | the carrier pattern applied to network traffic: batches as objects, routers as independently paid parties |
 
 ## The members
 
@@ -76,11 +75,6 @@ sequenced object delivered to every edge at once, served to players from
 each edge or re-emitted onto a site's own multicast domain. Distribution
 stacks downward: what arrives by broadcast can be re-broadcast.
 
-**bgateway** is the research member: the carrier pattern applied to
-network traffic itself. Batches of packets travel as objects, routers
-verify provenance by SPV and are paid per flow, and a certified source
-address costs the router nothing to check.
-
 ## How the members lean on each other
 
 The order is dependency, and it compounds. blogs proves the high-rate
@@ -89,7 +83,6 @@ a transport, and builds the paying client once. borg gives bchat and
 bsecret their membership, ordering and key rotation. bstore gives
 everything above it somewhere for content larger than a record. bmedia
 composes the append pattern, the storage market and the keyed renditions.
-bgateway stands apart, leaning only on the plane itself.
 
 bfinger is live, and it is the first, not the template. Each member
 stands on its own: its own repository, published when it ships, carrying

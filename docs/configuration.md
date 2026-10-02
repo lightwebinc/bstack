@@ -33,7 +33,6 @@ role names its own source and none takes headers from whoever answered.
 | Reader | a header read API base URL (bfinger: `header_url`, `-header-url`) | bcommon's `headers` package reads a bridge's `/v1/root/{height}`; a 404 means the height is not held yet, and is kept distinct from an unreachable source |
 | Host | the engine's chain tracker, pointed at a bridge's header read API | the bridge serves the headers it received on its own header lane |
 | Bridge | an anchor for the initial chain and for gaps, and a minimum-work floor | [overlay-bridge configuration](https://github.com/lightwebinc/overlay-bridge/blob/main/docs/configuration.md): `-header-anchor` must serve `/v1/tip`, `/v1/root/{height}` and `/v1/header/{hash}`; `-header-min-bits` is `0x1d00ffff` on mainnet, and the default floor is for a lab only |
-| bgateway router | `-headers`, a file of the blocks it trusts | whole headers are what bind certified addresses |
 
 Point a reader at headers you or your organisation received: a bridge you
 run, or one run by someone you already trust for that. Over plain unicast
@@ -135,9 +134,8 @@ share a connection.
 On the host side, the bridge's facade is `-edge-ingress` (the delivery
 slot's inner addresses, in failover order) and `-publish-source`; see the
 [overlay-bridge configuration](https://github.com/lightwebinc/overlay-bridge/blob/main/docs/configuration.md).
-A member that submits straight to the plane rather than through an engine,
-as bgateway's measurement publisher does, names the plane's ingress address and one
-topic.
+A member that submits straight to the plane rather than through an engine
+names the plane's ingress address and one topic.
 
 ## Lookup routes
 
@@ -185,8 +183,6 @@ source the operator chose.
 
 | Member | Configuration reference |
 | --- | --- |
-| bfinger (repository, private) | [user guide, section 3](https://github.com/lightwebinc/bfinger/blob/main/docs/user-guide.md): the config file and its search order; [examples, configuration keys](https://github.com/lightwebinc/bfinger/blob/main/docs/examples.md): every key, its flag, default and who needs it; [host/README.md](https://github.com/lightwebinc/bfinger/blob/main/host/README.md): deploying the host modules, which have no configuration of their own |
-| bgateway (repository, private) | [README, router bounds](https://github.com/lightwebinc/bgateway/blob/main/README.md): every bound a delivery stream can make the router hold, and `bgw-router -h` for the rest; [docs/bflow-seam.md](https://github.com/lightwebinc/bgateway/blob/main/docs/bflow-seam.md): the usage tap and the `funded` policy rule |
-| bflow (repository, private) | [README](https://github.com/lightwebinc/bflow/blob/main/README.md): the daemons and the simulation; [docs/seams.md](https://github.com/lightwebinc/bflow/blob/main/docs/seams.md): the funded-state feed, the usage taps, the payment lane and the lab chain; [docs/protocol.md](https://github.com/lightwebinc/bflow/blob/main/docs/protocol.md): the contract fields that select each mode |
+| bfinger (repository, public) | [user guide, section 3](https://github.com/lightwebinc/bfinger/blob/main/docs/user-guide.md): the config file and its search order; [examples, configuration keys](https://github.com/lightwebinc/bfinger/blob/main/docs/examples.md): every key, its flag, default and who needs it; [host/README.md](https://github.com/lightwebinc/bfinger/blob/main/host/README.md): deploying the host modules, which have no configuration of their own |
 | bcommon (repository, public) | [docs/registry.md](https://github.com/lightwebinc/bcommon/blob/main/docs/registry.md): every member's protocols, tags, magic, topics and baskets; [docs/versioning.md](https://github.com/lightwebinc/bcommon/blob/main/docs/versioning.md): pinning one tag in Go and TypeScript; [docs/dependencies.md](https://github.com/lightwebinc/bcommon/blob/main/docs/dependencies.md): the single dependency and its exact version |
 | overlay-bridge | [docs/configuration.md](https://github.com/lightwebinc/overlay-bridge/blob/main/docs/configuration.md): every flag, the modes, and the startup checks that refuse a half-configured host |

@@ -239,9 +239,8 @@ bfinger's repository is the built example of the layout:
   its limits stated plainly. Where the committed record fits, cite
   [bfinger's specification](https://github.com/lightwebinc/bfinger/blob/main/docs/committed-record.md);
   where it does not, write the member's own shape.
-- **Keep money out of the delivery path.** A payment is its own leg; see
-  [bflow](https://github.com/lightwebinc/bflow) for channels and the
-  funded-state feed a service can read.
+- **Keep money out of the delivery path.** A payment is its own leg, run
+  beside the data rather than inside it.
 
 ### Add it to the family
 

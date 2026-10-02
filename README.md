@@ -86,14 +86,12 @@ published as each member ships.
 | bchat                                             | team chat with a proof on every message                                                                                     | designed                                                 |
 | bstore                                            | storage as a market: publish once, providers compete to hold and serve                                                      | designed                                                 |
 | bmedia                                            | large sequenced objects to every edge at once, re-emitted onward                                                            | designed                                                 |
-| bgateway                                          | the carrier pattern applied to network traffic itself                                                                       | research, measured in a lab                              |
 
-Two shared pieces sit beside the members:
+One shared piece sits beside the members:
 
 | Piece                                             | What it is                                                                                                                                                              | Status                                        |
 | ---------------------------------------------------| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------| -----------------------------------------------|
 | [bcommon](https://github.com/lightwebinc/bcommon) | the Go library, with a TypeScript package for host modules, that carries the machinery members choose to share, and the registry of every member's on-chain identifiers | repository (public); pre-1.0, tagged `v0.1.0` |
-| bflow                                             | pay-per-flow: bilateral payment channels that settle metered usage                                                                                                      | proof of concept     |
 
 [docs/family.md](docs/family.md) maps each member to the patterns it
 demonstrates and to the members it leans on.
@@ -111,7 +109,7 @@ hard dependency. The network is what makes distribution reliable and global.
 - [Architecture](docs/architecture.md): the reference architecture every member
   shares: the four roles, the plane in both postures, the overlay host and its
   module, the committed record, header sources and sovereign verification, the
-  payment leg, and where bcommon and bflow fit
+  payment leg, and where bcommon fits
 - [Configuration](docs/configuration.md): what a member deployment needs,
   whichever member it is: header source, host set and quorum, wallet, topics,
   submit endpoints, lookup routes, and each member's own configuration reference

@@ -85,10 +85,6 @@ The plane carries three things a member uses:
 | Header lane | BRC-135 | bare block headers, checked for work by the bridge and served as a chain tracker |
 | Submit facade | BRC-22 | the publisher's one submission, forwarded to a local engine and then published once |
 
-A member that is not an overlay application at the host end takes delivery
-the same way: bgateway's router reads BRC-149 delivery records straight
-from a delivery stream, with no engine behind it.
-
 ### Unicast: peer to peer to each host
 
 Every pattern runs without the plane. The publisher submits to a host's own
@@ -190,11 +186,9 @@ a witness commitment, the hash of a secret the next transition must reveal,
 and roots over whole sub-stores of further carriers, so one small record
 vouches for a large body of content.
 
-Members vary the shape where their problem demands. bgateway keeps the
-funding tree and the unmined carrier and drops the state token: each carrier
-holds a batch of packets, and the router checks the tree once and one
-signature per batch. The interval anchor, one mined root per interval over
-many unmined objects, is the designed shape for high-rate streams.
+Members vary the shape where their problem demands. The interval anchor,
+one mined root per interval over many unmined objects, is the designed
+shape for high-rate streams.
 
 ## Publishing: two legs that never share a socket
 
@@ -267,7 +261,6 @@ supplied both the claim and the yardstick.
 | Overlay host | its chain tracker, pointed at a bridge's header read API |
 | Bridge | its own header lane, checked against a minimum-work floor, anchored and re-anchored from a header service its operator trusts |
 | Reader | a header source it names itself; bcommon's `headers` package is a chain tracker over a bridge's header read API |
-| bgateway router | a file of heights and roots, or whole headers, that the router trusts |
 
 Three rules hold everywhere:
 
@@ -290,8 +283,6 @@ object plane as a payment. Money moves beside the data.
 | Shape | What moves | Where it exists today |
 | --- | --- | --- |
 | Point to point | a fresh output derived from a verified identity key (BRC-29), plus a notice the recipient claims it with | built in bfinger (`pay`, `receive`); notice delivery is by hand until a message box carries it |
-| Payment channel | a funded 2-of-2 per leg, cumulative commitments the payee gates service on, settlement committing a Merkle root of the usage | bflow, proof of concept (loopback networking only) |
-| Funded gate | a payee's funded-state feed that a service reads before it serves | bflow serves it; bgateway's router reads it in a `funded` policy rule |
 | Priced question class | a price in front of a question other than the base one | designed; bfinger's lookup service already sorts questions into classes and refuses unknown members |
 | Keyed content | ciphertext on the plane, a payment that releases the key (BRC-369) | designed |
 | Payment in an envelope, bounty, multi-receiver split | a payment carried by a record and settled when claimed, raced or divided | designed (envelopes in bbox, bounties in bstore) |
@@ -308,17 +299,17 @@ monetises the audience it owns.
 | Base lookup | nobody, on any conforming host | reads are free and anonymous at the floor |
 | A payment | the payer | the amount, plus one miner fee |
 
-## Where bcommon and bflow fit
+## Where bcommon fits
 
 ```text
-   member (bfinger, ...)                 bflow (proof of concept)
-     │ Go: pins an exact bcommon tag        │ payment channels, metering,
-     │ TS: host module bundles              │ reconciliation, settlement
-     │     @lightwebinc/bcommon             │
-     ▼                                      ▼
-   bcommon ─▶ go-sdk (one dependency)     funded-state feed ─▶ bgateway router
-     └─ docs/registry.md: every member's       (HTTP/JSON, no Go import
-        protocols, tags, magic, topics,         across the two)
+   member (bfinger, ...)
+     │ Go: pins an exact bcommon tag
+     │ TS: host module bundles
+     │     @lightwebinc/bcommon
+     ▼
+   bcommon ─▶ go-sdk (one dependency)
+     └─ docs/registry.md: every member's
+        protocols, tags, magic, topics,
         baskets
 ```
 
@@ -336,18 +327,7 @@ Its packages line up with the roles:
 It has one direct dependency, go-sdk, at an exact version, and its tests
 compare its output byte for byte with vectors from an independent
 generator. It also holds the registry of the identifiers members put on
-chain, so that no two collide. bfinger is built on it today; bgateway and
-bflow build on go-sdk directly.
-
-**bflow** is where the richer payment shapes are proven before a member
-depends on them: a payer and a payee agree a contract, open a half-channel,
-meter on both sides, reconcile on cumulatives (the lower value settles),
-and settle on chain. It runs in two modes, bound (an operator side and a
-verify-only agent that holds no key) and sovereign (two identical stations,
-each paying for what it receives), over a synthetic chain on loopback. It
-binds to members through narrow seams rather than imports: bgateway's
-router reads its funded-state feed. Its repository names every commercial
-seam it does not build.
+chain, so that no two collide. bfinger is built on it today.
 
 ## Standards in play
 
