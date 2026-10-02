@@ -66,7 +66,7 @@ first. Repositories are published as each member ships.
 
 | Member | One line | Status |
 | --- | --- | --- |
-| [bfinger](https://github.com/lightwebinc/bfinger) | ask what a name claims about itself, get an answer that proves itself | repository (private, public after the pattern paper); live on mainnet, with a public host |
+| [bfinger](https://github.com/lightwebinc/bfinger) | ask what a name claims about itself, get an answer that proves itself | repository (public); live on mainnet, with a public host |
 | blogs | append-only streams to many archives at once, with per-interval completeness proofs | designed |
 | bbox | a message box replicated by the network, with payments travelling inside envelopes | designed |
 | borg | organisations: membership with real revocation, group changes in an unforgeable order, keys that rotate when someone leaves | designed |
@@ -109,8 +109,8 @@ makes distribution reliable and global.
   <https://1bsv.net/papers/overlay-object-plane.pdf>
 - _The overlay bridge: an unmodified engine on the object plane_:
   <https://1bsv.net/papers/overlay-bridge.pdf>
-- The pattern paper for this family is forthcoming at
-  <https://1bsv.net/papers.html>
+- _The bstack: publish once, prove everything, and let users ride free_:
+  <https://1bsv.net/papers/bstack-patterns.pdf>
 
 ---
 
