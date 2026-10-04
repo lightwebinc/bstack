@@ -4,7 +4,7 @@ A shared starting kit, worn differently. Most members build from the
 same parts: committed records on the multicast object plane, carriers
 from funding trees, roots binding sub-stores, mined state only where
 order matters, hosts as replicas, free base answers, and per-entity
-chains as the serialisation points. There is no coordinator and no
+chains as the serialization points. There is no coordinator and no
 global lock anywhere in the family, and the delivery meter never
 carries the money: payment shapes run from point-to-point legs to
 bounties, multi-receiver splits, and flows an overlay itself settles.
@@ -17,8 +17,8 @@ The patterns themselves are stated in [patterns.md](patterns.md).
 | --- | --- |
 | [bfinger](https://github.com/lightwebinc/bfinger) | versioned self-published state: a name resolves to a key, the key signs the state, every host answers with proof |
 | blogs | high-rate append: batches to many archives at once, per-interval completeness proofs, many producers with no coordinator |
-| bbox | a message box replicated by the plane: envelopes with structural postage, payments travelling inside them |
-| borg | organisations: membership as certificates with real revocation, group changes totally ordered by a chain, keys that rotate on removal |
+| bbox | a message box replicated by the plane: envelopes with structural postage, payments traveling inside them |
+| borg | organizations: membership as certificates with real revocation, group changes totally ordered by a chain, keys that rotate on removal |
 | bsecret | ciphertext-only hosts: grants, versions and rotations as mined facts an auditor verifies against headers alone |
 | bchat | a proof on every message: a company, its auditor and its partner hold the same bytes by construction |
 | bstore | storage as a market: publish once, providers compete to hold, availability proofs as priced questions |
@@ -46,7 +46,7 @@ payment can travel inside an envelope and settle when the recipient
 claims it, which is what gives every other member its payment notices and
 releases.
 
-**borg** gives the family its organisations: membership as certificates
+**borg** gives the family its organizations: membership as certificates
 that can actually be revoked, every change to a group recorded on that
 group's own chain so order is unforgeable, and group keys that rotate
 when someone leaves rather than lingering. Chat rooms, secret grants and

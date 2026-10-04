@@ -153,7 +153,7 @@ module lookup restored from storage {path, lookup, outputs}
 
 Deploy a new module version to hosts before publishers use anything it
 introduces: a host running an older module refuses what it does not know.
-The whole contract, including the kill and restart behaviour, is in
+The whole contract, including the kill and restart behavior, is in
 [bfinger's host/README.md](https://github.com/lightwebinc/bfinger/blob/main/host/README.md);
 the bridge side is in
 [overlay-bridge](https://github.com/lightwebinc/overlay-bridge).
@@ -174,7 +174,7 @@ built.
 3. **The payment leg,** or the sentence saying why there is none. Every
    verified identity key is already payable.
 4. **The scaling shape:** where the state lives, what a replica is, what the
-   serialisation points are (a per-entity chain is a per-entity lock; never
+   serialization points are (a per-entity chain is a per-entity lock; never
    a global one), and what is stateless. No coordinator, no queue between
    hosts.
 5. **What is frozen at first publish:** derivation protocols and key ids,

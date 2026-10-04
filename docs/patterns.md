@@ -30,7 +30,7 @@ record by a 32-byte hash. The record itself never appears in a block.
 per update, with double-spend protection doing the work that version
 vectors and consensus modules do elsewhere.
 
-**Limit.** One chain per entity is a serialisation point, by design.
+**Limit.** One chain per entity is a serialization point, by design.
 State that must change concurrently belongs to different entities with
 different chains.
 

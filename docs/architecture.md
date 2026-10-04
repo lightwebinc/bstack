@@ -289,7 +289,7 @@ object plane as a payment. Money moves beside the data.
 
 What each party pays, in every member that publishes. Delivery is metered
 on elected volume, flat in the number of participants, and each tier
-monetises the audience it owns.
+monetizes the audience it owns.
 
 | Flow | Who pays | For what |
 | --- | --- | --- |

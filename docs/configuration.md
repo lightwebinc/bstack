@@ -34,7 +34,7 @@ role names its own source and none takes headers from whoever answered.
 | Host | the engine's chain tracker, pointed at a bridge's header read API | the bridge serves the headers it received on its own header lane |
 | Bridge | an anchor for the initial chain and for gaps, and a minimum-work floor | [overlay-bridge configuration](https://github.com/lightwebinc/overlay-bridge/blob/main/docs/configuration.md): `-header-anchor` must serve `/v1/tip`, `/v1/root/{height}` and `/v1/header/{hash}`; `-header-min-bits` is `0x1d00ffff` on mainnet, and the default floor is for a lab only |
 
-Point a reader at headers you or your organisation received: a bridge you
+Point a reader at headers you or your organization received: a bridge you
 run, or one run by someone you already trust for that. Over plain unicast
 the header source is the one hard dependency; nothing else in a deployment
 needs the plane.
