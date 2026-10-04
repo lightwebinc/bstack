@@ -20,9 +20,6 @@ The patterns themselves are stated in [patterns.md](patterns.md).
 | bbox | a message box replicated by the plane: envelopes with structural postage, payments traveling inside them |
 | borg | organizations: membership as certificates with real revocation, group changes totally ordered by a chain, keys that rotate on removal |
 | bsecret | ciphertext-only hosts: grants, versions and rotations as mined facts an auditor verifies against headers alone |
-| bchat | a proof on every message: a company, its auditor and its partner hold the same bytes by construction |
-| bstore | storage as a market: publish once, providers compete to hold, availability proofs as priced questions |
-| bmedia | large sequenced objects to every edge at once, re-emitted onto a site's own multicast domain |
 
 ## The members
 
@@ -49,8 +46,8 @@ releases.
 **borg** gives the family its organizations: membership as certificates
 that can actually be revoked, every change to a group recorded on that
 group's own chain so order is unforgeable, and group keys that rotate
-when someone leaves rather than lingering. Chat rooms, secret grants and
-delegations all stand on it.
+when someone leaves rather than lingering. Secret grants and delegations
+stand on it.
 
 **bsecret** stores secrets so that the hosts holding them learn nothing:
 content is keyed before it is published, hosts hold ciphertext they
@@ -58,31 +55,13 @@ cannot distinguish from noise, and grants, versions and rotations are
 mined facts. An auditor verifies the trail against block headers with no
 cooperation from the operator.
 
-**bchat** is team chat where the transcript defends itself: every message
-carries a proof, every host of the workspace holds the same bytes, and a
-company, its auditor and its partner can each run a host and agree by
-construction. Private channels key their content per epoch; direct
-messages ride bbox.
-
-**bstore** turns storage into a market. A publisher puts an object on the
-wire once; providers that subscribed to the bucket decide whether to
-hold it, advertise their holding, and earn bounties, renewals and priced
-availability proofs. Anyone with an interest in an object, not only its
-publisher, can buy it more time.
-
-**bmedia** applies the append pattern to media: each segment is a signed,
-sequenced object delivered to every edge at once, served to players from
-each edge or re-emitted onto a site's own multicast domain. Distribution
-stacks downward: what arrives by broadcast can be re-broadcast.
 
 ## How the members lean on each other
 
 The order is dependency, and it compounds. blogs proves the high-rate
 pattern the later members reuse. bbox gives releases and payment notices
-a transport, and builds the paying client once. borg gives bchat and
-bsecret their membership, ordering and key rotation. bstore gives
-everything above it somewhere for content larger than a record. bmedia
-composes the append pattern, the storage market and the keyed renditions.
+a transport, and builds the paying client once. borg gives bsecret its
+membership, ordering and key rotation.
 
 bfinger is live, and it is the first, not the template. Each member
 stands on its own: its own repository, published when it ships, carrying

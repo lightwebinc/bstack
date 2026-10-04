@@ -83,9 +83,6 @@ published as each member ships.
 | bbox                                              | a message box replicated by the network, with payments traveling inside envelopes | built (repository private); [Pattern 002](https://1bsv.net/patterns/bbox.pdf) |
 | borg                                              | organizations: membership with real revocation, group changes in an unforgeable order, keys that rotate when someone leaves | built (repository private); [Pattern 003](https://1bsv.net/patterns/borg.pdf) |
 | bsecret                                           | secrets whose hosts hold only ciphertext, with grants and rotations as facts an auditor verifies | built (repository private); [Pattern 004](https://1bsv.net/patterns/bsecret.pdf) |
-| bchat                                             | team chat with a proof on every message                                                                                     | designed                                                 |
-| bstore                                            | storage as a market: publish once, providers compete to hold and serve                                                      | designed                                                 |
-| bmedia                                            | large sequenced objects to every edge at once, re-emitted onward                                                            | designed                                                 |
 
 One shared piece sits beside the members:
 
