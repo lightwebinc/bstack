@@ -1,5 +1,13 @@
 # bstack
 
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+
+> [!WARNING]
+> **Experimental software.** bstack is the applications and patterns built on
+> [BSV Layered Multicast](https://github.com/lightwebinc/bsv-multicast). Everything here is
+> published to be built on and improved. Interfaces, formats and behavior may change rapidly
+> between releases; pin an exact version of anything you depend on.
+
 A pattern language for BSV overlay applications, and the family of applications
 built from it.
 
@@ -83,12 +91,14 @@ published as each member ships.
 | bbox                                              | a message box replicated by the network, with payments traveling inside envelopes | built (repository private); [Pattern 002](https://1bsv.net/patterns/bbox.pdf) |
 | borg                                              | organizations: membership with real revocation, group changes in an unforgeable order, keys that rotate when someone leaves | built (repository private); [Pattern 003](https://1bsv.net/patterns/borg.pdf) |
 | bsecret                                           | secrets whose hosts hold only ciphertext, with grants and rotations as facts an auditor verifies | built (repository private); [Pattern 004](https://1bsv.net/patterns/bsecret.pdf) |
+| bchat                                             | team chat with a proof on every message; direct messages and payments ride bbox                  | built (repository private)                                                       |
+| bstore                                            | storage as a market: publish once, providers compete to hold and serve, readers prove every byte | built (repository private)                                                       |
 
 One shared piece sits beside the members:
 
 | Piece                                             | What it is                                                                                                                                                              | Status                                        |
 | ---------------------------------------------------| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------| -----------------------------------------------|
-| [bcommon](https://github.com/lightwebinc/bcommon) | the Go library, with a TypeScript package for host modules, that carries the machinery members choose to share, and the registry of every member's on-chain identifiers | repository (public); pre-1.0, tagged `v0.1.0` |
+| [bcommon](https://github.com/lightwebinc/bcommon) | the Go library, with a TypeScript package for host modules, that carries the machinery members choose to share, and the registry of every member's on-chain identifiers | repository (public); pre-1.0, pin an exact tag |
 
 [docs/family.md](docs/family.md) maps each member to the patterns it
 demonstrates and to the members it leans on.
@@ -133,5 +143,6 @@ hard dependency. The network is what makes distribution reliable and global.
 
 _Unbounded Solutions for a Small World™_
 
-_© 2026 Lightweb Inc. All rights reserved. This architecture is in rapid
-development; everything here is subject to change without notice._
+_© 2026 Lightweb Inc. Licensed under the [Apache License 2.0](LICENSE). This
+architecture is in rapid development; everything here is subject to change
+without notice._
