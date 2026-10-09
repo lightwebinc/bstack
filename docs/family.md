@@ -17,7 +17,7 @@ The patterns themselves are stated in [patterns.md](patterns.md).
 | --- | --- |
 | [bfinger](https://github.com/lightwebinc/bfinger) | versioned self-published state: a name resolves to a key, the key signs the state, every host answers with proof |
 | blogs | high-rate append: batches to many archives at once, per-interval completeness proofs, many producers with no coordinator |
-| bbox | a message box replicated by the plane: envelopes with structural postage, payments traveling inside them |
+| [bbox](https://github.com/lightwebinc/bbox) | a message box replicated by the plane: envelopes with structural postage, payments traveling inside them |
 | borg | organizations: membership as certificates with real revocation, group changes totally ordered by a chain, keys that rotate on removal |
 | bsecret | ciphertext-only hosts: grants, versions and rotations as mined facts an auditor verifies against headers alone |
 | bchat | a proof on every message: a company, its auditor and its partner hold the same bytes by construction |
