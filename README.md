@@ -86,13 +86,13 @@ published as each member ships.
 
 | Member                                            | One line                                                                                                                    | Status                                                   |
 | ---------------------------------------------------| -----------------------------------------------------------------------------------------------------------------------------| ----------------------------------------------------------|
-| [bfinger](https://github.com/lightwebinc/bfinger) | ask what a name claims about itself, get an answer that proves itself                                                       | repository (public); live on mainnet, with a public host |
+| [bfinger](https://github.com/lightwebinc/bfinger) | ask what a name claims about itself, get an answer that proves itself                                                       | repository (public); live on mainnet, with a public host; [Pattern 001](https://1bsv.net/patterns/bfinger.pdf) |
 | blogs                                             | append-only streams to many archives at once, with per-interval completeness proofs; a verifying log backend behind Loki and Grafana | built (repository private); [Pattern 005](https://1bsv.net/patterns/blogs.pdf) |
 | [bbox](https://github.com/lightwebinc/bbox)       | a message box replicated by the network, with payments traveling inside envelopes | repository (public); [Pattern 002](https://1bsv.net/patterns/bbox.pdf) |
 | borg                                              | organizations: membership with real revocation, group changes in an unforgeable order, keys that rotate when someone leaves | built (repository private); [Pattern 003](https://1bsv.net/patterns/borg.pdf) |
 | bsecret                                           | secrets whose hosts hold only ciphertext, with grants and rotations as facts an auditor verifies | built (repository private); [Pattern 004](https://1bsv.net/patterns/bsecret.pdf) |
 | bchat                                             | team chat with a proof on every message, from a terminal or a browser; direct messages and payments ride bbox | built (repository private)                                                       |
-| bstore                                            | storage as a market: publish once, providers compete to hold and serve, readers prove every byte; an existing UHRP host joins through bstore-bridge | built (repository private)                                                       |
+| bstore                                            | storage as a market: publish once, providers compete to hold and serve, readers prove every byte; an existing UHRP host joins through a UHRP adapter | built (repository private)                                                       |
 
 One shared piece sits beside the members:
 
@@ -134,7 +134,8 @@ hard dependency. The network is what makes distribution reliable and global.
 - _The overlay bridge: an unmodified engine on the object plane_:
   <https://1bsv.net/papers/overlay-bridge.pdf>
 - _The bstack: publish once, prove everything, and let users ride free_:
-  <https://1bsv.net/papers/bstack-patterns.pdf>
+  <https://1bsv.net/papers/bstack-patterns.pdf>, with a plain-language
+  overview: <https://1bsv.net/papers/bstack-overview.pdf>
 
 ---
 

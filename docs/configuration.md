@@ -3,7 +3,10 @@
 What a member deployment needs, whichever member it is. The settings fall
 into six groups, and each is owned by one role. The exact keys and flags
 belong to each member and are in its own reference; the table at the end
-points to them.
+points to them. Where a table below gives a key, bfinger's spelling is the
+example; every member reads the same settings from its config file, its
+flags and `<MEMBER>_<KEY>` environment variables (`BFINGER_`, `BBOX_`,
+`BCHAT_`, `BSTORE_`, `BLOGS_`, `BORG_`, `BSECRET_`).
 
 One rule runs through every group: **a setting that decides whom to trust,
 or where objects and questions go, has no default.** A default header
@@ -106,7 +109,11 @@ holding coin for two members never mixes them.
 A topic is where a member's objects live on a host and on the plane. The
 names follow bcommon's registry: `tm_<name>` for the topic manager and
 `ls_<name>` for the lookup service, and a lab or test topic adds a suffix
-(`tm_<name>_lab`) and is never used in production.
+(`tm_<name>_lab`) and is never used in production. A topic that more than
+one independent user can create carries entropy, a random suffix chosen
+once when it is created: `tm_<app>_<name>_<suffix>` (bbox:
+`tm_bbox_<name>_<suffix>`, one per office). bfinger's single topic,
+`tm_finger`, needs none.
 
 The same topic name appears in four places, and they must agree:
 
@@ -148,8 +155,10 @@ with one question per POST.
   free question.
 - **The free floor.** The base classes are priced zero on every conforming
   host. A host that charges for anything above the floor publishes its
-  terms at its own route; a price is never carried in a record. Host-side
-  charging is designed and not built in any member.
+  terms at its own route; a price is never carried in a record. The terms
+  route, its budgets, payment acceptance and the payee ledger's state
+  directory are shared by every member's host module; see
+  [bcommon's host module](https://github.com/lightwebinc/bcommon/blob/main/docs/host-module.md).
 - **The reader asks the named host only.** bcommon's `lookup` client never
   runs discovery against public trackers: the host to ask is the one the
   domain named, or the one the reader configured.
@@ -165,6 +174,7 @@ the module itself:
 | Chain tracker at a bridge's header read API | admission is checked against headers this host received |
 | The topics mounted (the reference host: `OVERLAY_TOPICS`, `OVERLAY_MODULES`) | a module mounts only on topics the host names; a module that cannot be mounted stops the host before its port opens |
 | A bridge in `feed` or `all` mode | `feed` delivers into the engine; `all` also serves the submit facade |
+| The engine's storage | MySQL 26 across the family; the overlay engine has no other SQL dialect yet |
 
 Over plain unicast the bridge is optional: the engine's own submit route
 receives objects directly, and its chain tracker still needs a header
@@ -174,7 +184,7 @@ source the operator chose.
 
 | Check | What it shows |
 | --- | --- |
-| `bfinger doctor` | a bfinger home's local state, wallet, header source, node, facade and journal, contacting what is configured |
+| `<member> doctor` (`bfinger doctor`, `bbox doctor`, ...) | the member home's local state, wallet, header source, node, facade and journal, contacting what is configured |
 | The module's load line in the host log | which module, built with which bcommon version, is mounted on which topics |
 | `overlay_bridge_tracker_roots_total{source="lane"}` against `{source="fallback"}` | whether the host's verification is fed by its own header lane rather than by the anchor |
 | `unknown_topic` on the bridge's feed | a subscription and the bridge's `-topics` have drifted apart |
@@ -184,5 +194,7 @@ source the operator chose.
 | Member | Configuration reference |
 | --- | --- |
 | bfinger (repository, public) | [user guide, section 3](https://github.com/lightwebinc/bfinger/blob/main/docs/user-guide.md): the config file and its search order; [examples, configuration keys](https://github.com/lightwebinc/bfinger/blob/main/docs/examples.md): every key, its flag, default and who needs it; [host/README.md](https://github.com/lightwebinc/bfinger/blob/main/host/README.md): deploying the host modules, which have no configuration of their own |
-| bcommon (repository, public) | [docs/registry.md](https://github.com/lightwebinc/bcommon/blob/main/docs/registry.md): every member's protocols, tags, magic, topics and baskets; [docs/versioning.md](https://github.com/lightwebinc/bcommon/blob/main/docs/versioning.md): pinning one tag in Go and TypeScript; [docs/dependencies.md](https://github.com/lightwebinc/bcommon/blob/main/docs/dependencies.md): the single dependency and its exact version |
+| bbox (repository, public) | [docs/configuration.md](https://github.com/lightwebinc/bbox/blob/main/docs/configuration.md): the config file, every key and flag, `BBOX_<KEY>`, the container image; [docs/host.md](https://github.com/lightwebinc/bbox/blob/main/docs/host.md): the host module |
+| bchat, bstore, blogs, borg, bsecret (repositories private) | each has the same `docs/configuration.md` and `docs/host.md`, published with its repository |
+| bcommon (repository, public) | [docs/host-module.md](https://github.com/lightwebinc/bcommon/blob/main/docs/host-module.md): the terms route, budgets, payment acceptance and state directory every host module shares; [docs/registry.md](https://github.com/lightwebinc/bcommon/blob/main/docs/registry.md): every member's protocols, tags, magic, topics and baskets; [docs/versioning.md](https://github.com/lightwebinc/bcommon/blob/main/docs/versioning.md): pinning one tag in Go and TypeScript; [docs/dependencies.md](https://github.com/lightwebinc/bcommon/blob/main/docs/dependencies.md): the single dependency and its exact version |
 | overlay-bridge | [docs/configuration.md](https://github.com/lightwebinc/overlay-bridge/blob/main/docs/configuration.md): every flag, the modes, and the startup checks that refuse a half-configured host |

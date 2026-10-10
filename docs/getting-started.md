@@ -2,9 +2,15 @@
 
 Four tasks, in the order most people meet them: read a member's record end
 to end, publish one, run a member's host module on an overlay host, and add
-a new member to the family. bfinger is the member used throughout, because
-it is the one that exists end to end; each step links to the member's own
-documentation rather than repeating it.
+a new member to the family. Each member works the same way: its own
+command reads and publishes, its config file, flags and `<MEMBER>_<KEY>`
+environment variables (`BFINGER_`, `BBOX_`, and so on) carry the settings,
+and its host module mounts on an overlay host. bfinger is the worked example
+below because it is live on mainnet with a public host; bbox, the other
+public member, follows the same steps in its
+[user guide](https://github.com/lightwebinc/bbox/blob/main/docs/user-guide.md)
+and [configuration](https://github.com/lightwebinc/bbox/blob/main/docs/configuration.md).
+Each step links to the member's own documentation rather than repeating it.
 
 The shapes behind each step are in [architecture.md](architecture.md), and
 every setting named here is in [configuration.md](configuration.md).
@@ -105,7 +111,7 @@ A member's host side is a module: a topic manager and a lookup service
 written against the released overlay engine's interfaces. The module never
 imports the engine, so it runs on any host built on that engine.
 
-**Build the module.** bfinger's builds to one file, with bcommon's
+**Build the module.** Each member's builds the same way; bfinger's builds to one file, with bcommon's
 TypeScript package inlined and `@bsv/sdk` left as a bare import:
 
 ```console
@@ -155,6 +161,9 @@ Deploy a new module version to hosts before publishers use anything it
 introduces: a host running an older module refuses what it does not know.
 The whole contract, including the kill and restart behavior, is in
 [bfinger's host/README.md](https://github.com/lightwebinc/bfinger/blob/main/host/README.md);
+what every member's module shares (the terms route, budgets, payment
+acceptance and the state directory) is in
+[bcommon's host module](https://github.com/lightwebinc/bcommon/blob/main/docs/host-module.md);
 the bridge side is in
 [overlay-bridge](https://github.com/lightwebinc/overlay-bridge).
 
@@ -204,7 +213,7 @@ in the same change that adds them to its code:
 | Key ids | fixed strings recorded, or the shape of a per-object id described |
 | Tag | a two-byte ASCII prefix owned by one member, plus one type byte it assigns |
 | Record magic | the member's tag prefix, a letter and a version byte |
-| Topic and lookup service | `tm_<name>` and `ls_<name>`; a lab topic adds a suffix and never reaches production |
+| Topic and lookup service | `tm_<name>` and `ls_<name>`; a topic any user can create carries a random suffix, `tm_<app>_<name>_<suffix>`; a lab topic adds a suffix and never reaches production |
 | Baskets | start with the member's name |
 
 A reviewer checks the new rows against every existing one. A collision is

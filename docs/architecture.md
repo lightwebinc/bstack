@@ -320,14 +320,19 @@ Its packages line up with the roles:
 
 | Role | bcommon packages |
 | --- | --- |
-| Publisher | `cbor`, `commit`, `store`, `pushdrop`, `carrier`, `mint`, `funding`, `bwallet`, `wirewallet`, `publish`, `nodeapi` |
-| Host module | `@lightwebinc/bcommon` (TypeScript): canonical CBOR, store refs, the reader's derivation, field signatures, the funding and carrier decodes, the engine interfaces a module satisfies |
-| Reader | `resolve`, `hostset`, `lookup`, `headers`, `verify`, `guard`, `knownkeys` |
+| Publisher | `cbor`, `record`, `commit`, `store`, `pushdrop`, `carrier`, `keyed`, `mint`, `feepolicy`, `funding`, `bwallet`, `wirewallet`, `publish`, `producer`, `chainview`, `unicast`, `nodeapi` |
+| Host module | `@lightwebinc/bcommon` (TypeScript): canonical CBOR, store refs, the reader's derivation, field signatures, the funding and carrier decodes, the engine interfaces a module satisfies; `@lightwebinc/bcommon/host`: the terms route, its budgets, payment acceptance and the payee ledger |
+| Reader | `resolve`, `hostset`, `lookup`, `headers`, `verify`, `guard`, `knownkeys`, `chaintoken`, `chirp`, `termsafe`, `sanitize` |
+| Payments | `purse`, `heldpay` (the payer); `payee`, `payeecmd`, `acceptance` (the payee) |
+| Tests | `goldentest`, `testchain` |
+
+One line on each package is in
+[bcommon's package table](https://github.com/lightwebinc/bcommon#readme).
 
 It has one direct dependency, go-sdk, at an exact version, and its tests
 compare its output byte for byte with vectors from an independent
 generator. It also holds the registry of the identifiers members put on
-chain, so that no two collide. bfinger is built on it today.
+chain, so that no two collide. Every member is built on it.
 
 ## Standards in play
 
@@ -348,3 +353,14 @@ consensus rule or a proprietary protocol.
 
 Each member's repository lists the standards it implements, where in the
 code, and which are designed and not built.
+
+## Glossary
+
+Some words mean different things in different members' documents.
+
+| Term | Meanings |
+| --- | --- |
+| gateway | an IP gateway, routing packets onto the network (a separate project, not a member); bstore's S3 gateway, which speaks the S3 API in front of a bucket; blogs' read gateway, which serves a stream's entries to log tools such as Loki and Grafana |
+| bridge | [overlay-bridge](https://github.com/lightwebinc/overlay-bridge), the plane-to-overlay bridge that feeds delivered objects to an engine and serves the submit facade and header read API; distinct from a UHRP adapter, which lets an existing UHRP host join bstore unchanged |
+| posture | bstack's word for how a member runs: on the plane, or over plain unicast. Member documents say "mode" or "plane" for the same choice (for example "without the plane"); the bridge's `feed` and `all` are its own modes |
+| topic | a topic manager's name, `tm_<name>`, with its lookup service `ls_<name>`. A topic any user can create carries an entropy suffix chosen once at creation, `tm_<app>_<name>_<suffix>` (for example `tm_bbox_<name>_<suffix>`), and a reader holds the whole name; see [bcommon's registry](https://github.com/lightwebinc/bcommon/blob/main/docs/registry.md) |

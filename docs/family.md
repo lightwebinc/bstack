@@ -67,7 +67,7 @@ messages and payments ride bbox.
 wire once; providers that subscribe to the bucket decide whether to hold
 it, advertise their holding, and race for a bounty; anyone with an
 interest in an object can buy it more time or a proof that it is still
-held. Incumbent UHRP hosts join unchanged through a bridge.
+held. Incumbent UHRP hosts join unchanged through a UHRP adapter.
 
 
 ## How the members lean on each other
