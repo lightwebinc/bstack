@@ -283,8 +283,8 @@ object plane as a payment. Money moves beside the data.
 | Shape | What moves | Where it exists today |
 | --- | --- | --- |
 | Point to point | a fresh output derived from a verified identity key (BRC-29), plus a notice the recipient claims it with | built in bfinger (`pay`, `receive`); notice delivery is by hand until a message box carries it |
-| Priced question class | a price in front of a question other than the base one | designed; bfinger's lookup service already sorts questions into classes and refuses unknown members |
-| Keyed content | ciphertext on the plane, a payment that releases the key (BRC-369) | designed |
+| Priced question class | a price in front of a question other than the base one | built: bcommon `payee` (BRC-105 payee side) and the host module's priced classes, used by bbox, bchat, borg, bsecret and bstore |
+| Keyed content | ciphertext on the plane, a payment that releases the key (BRC-369) | key handling built in bcommon `keyed` (used by bsecret); the paid key release is designed |
 | Payment in an envelope, bounty, multi-receiver split | a payment carried by a record and settled when claimed, raced or divided | designed (envelopes in bbox) |
 
 What each party pays, in every member that publishes. Delivery is metered
