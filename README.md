@@ -90,7 +90,7 @@ published as each member ships.
 | blogs                                             | append-only streams to many archives at once, with per-interval completeness proofs; a verifying log backend behind Loki and Grafana | built (repository private); [Pattern 005](https://1bsv.net/patterns/blogs.pdf) |
 | [bbox](https://github.com/lightwebinc/bbox)       | a message box replicated by the network, with payments traveling inside envelopes | repository (public); [Pattern 002](https://1bsv.net/patterns/bbox.pdf) |
 | [borg](https://github.com/lightwebinc/borg)       | organizations: membership with real revocation, group changes in an unforgeable order, keys that rotate when someone leaves | repository (public); [Pattern 003](https://1bsv.net/patterns/borg.pdf) |
-| bsecret                                           | secrets whose hosts hold only ciphertext, with grants and rotations as facts an auditor verifies | built (repository private); [Pattern 004](https://1bsv.net/patterns/bsecret.pdf) |
+| [bsecret](https://github.com/lightwebinc/bsecret) | secrets whose hosts hold only ciphertext, with grants and rotations as facts an auditor verifies | repository (public); [Pattern 004](https://1bsv.net/patterns/bsecret.pdf) |
 | bchat                                             | team chat with a proof on every message, from a terminal or a browser; direct messages and payments ride bbox | built (repository private)                                                       |
 | bstore                                            | storage as a market: publish once, providers compete to hold and serve, readers prove every byte; an existing UHRP host joins through a UHRP adapter | built (repository private)                                                       |
 
