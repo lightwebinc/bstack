@@ -360,7 +360,7 @@ Some words mean different things in different members' documents.
 
 | Term | Meanings |
 | --- | --- |
-| gateway | an IP gateway, routing packets onto the network (a separate project, not a member); bstore's S3 gateway, which speaks the S3 API in front of a bucket; blogs' read gateway, which serves a stream's entries to log tools such as Loki and Grafana |
+| gateway | an IP gateway, routing packets onto the network (a separate project, not a member); bstore's S3 gateway, which speaks the S3 API in front of a bucket; blogs' read gateway, which serves the Loki API to Grafana and other Loki clients, marking every line verified or not |
 | bridge | [overlay-bridge](https://github.com/lightwebinc/overlay-bridge), the plane-to-overlay bridge that feeds delivered objects to an engine and serves the submit facade and header read API; distinct from a UHRP adapter, which lets an existing UHRP host join bstore unchanged |
 | posture | bstack's word for how a member runs: on the plane, or over plain unicast. Member documents say "mode" or "plane" for the same choice (for example "without the plane"); the bridge's `feed` and `all` are its own modes |
 | topic | a topic manager's name, `tm_<name>`, with its lookup service `ls_<name>`. A topic any user can create carries an entropy suffix chosen once at creation, `tm_<app>_<name>_<suffix>` (for example `tm_bbox_<name>_<suffix>`), and a reader holds the whole name; see [bcommon's registry](https://github.com/lightwebinc/bcommon/blob/main/docs/registry.md) |
