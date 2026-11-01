@@ -2,7 +2,7 @@
 
 Each pattern below is stated with its intent, its mechanics, what it buys,
 and its limit. They compose, and they are a shared language rather than a
-mould: each member of the family combines them its own way and adds
+mold: each member of the family combines them its own way and adds
 patterns of its own where its problem demands one. The full argument, with
 the economics and the standards each pattern rests on, is the pattern
 paper at <https://1bsv.net/papers.html>;

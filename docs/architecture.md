@@ -117,11 +117,15 @@ was admitted.
 ```
 
 The module never imports the engine. It is written against the engine's
-declared interfaces, which bcommon's TypeScript package
-(`@lightwebinc/bcommon`) reproduces structurally. A host loads it by path
-and mounts its topic managers and lookup services under their names.
-bfinger builds its module into a single file that imports nothing but
-`@bsv/sdk`, so the module shares the host's copy of the SDK.
+declared interfaces, which bcommon reproduces in both languages: the
+TypeScript package (`@lightwebinc/bcommon`) structurally, for the
+reference host, which loads a module by path and mounts its topic managers
+and lookup services under their names; and the Go `module` package as an
+engine-neutral contract (topic managers, lookup services, the host a module
+is built against, restore, and ordered replay), which a Go engine host
+compiles in. bfinger ships both; its TypeScript module is built into a
+single file that imports nothing but `@bsv/sdk`, so it shares the host's
+copy of the SDK.
 
 Three properties of every conforming host:
 
@@ -285,7 +289,7 @@ object plane as a payment. Money moves beside the data.
 | Point to point | a fresh output derived from a verified identity key (BRC-29), plus a notice the recipient claims it with | built in bfinger (`pay`, `receive`); notice delivery is by hand until a message box carries it |
 | Priced question class | a price in front of a question other than the base one | built: bcommon `payee` (BRC-105 payee side) and the host module's priced classes, used by bbox, bchat, borg, bsecret and bstore |
 | Keyed content | ciphertext on the plane, a payment that releases the key (BRC-369) | key handling built in bcommon `keyed` (used by bsecret); the paid key release is designed |
-| Payment in an envelope, bounty, multi-receiver split | a payment carried by a record and settled when claimed, raced or divided | designed (envelopes in bbox) |
+| Payment in an envelope, bounty, multi-receiver split | a payment carried by a record and settled when claimed, raced or divided | built in bbox (a payment travels inside an envelope, unbroadcast, for the recipient to internalize) and in bstore (providers race for a bounty); the multi-receiver split is designed |
 
 What each party pays, in every member that publishes. Delivery is metered
 on elected volume, flat in the number of participants, and each tier
@@ -360,7 +364,7 @@ Some words mean different things in different members' documents.
 
 | Term | Meanings |
 | --- | --- |
-| gateway | an IP gateway, routing packets onto the network (a separate project, not a member); bstore's S3 gateway, which speaks the S3 API in front of a bucket; blogs' read gateway, which serves the Loki API to Grafana and other Loki clients, marking every line verified or not |
+| gateway | bgateway's IP gateway, carrying packets in batches over the plane (a proof of concept beside the family, not a member); bstore's S3 gateway, which speaks the S3 API in front of a bucket; blogs' read gateway, which serves the Loki API to Grafana and other Loki clients, marking every line verified or not |
 | bridge | [overlay-bridge](https://github.com/lightwebinc/overlay-bridge), the plane-to-overlay bridge that feeds delivered objects to an engine and serves the submit facade and header read API; distinct from a UHRP adapter, which lets an existing UHRP host join bstore unchanged |
 | posture | bstack's word for how a member runs: on the plane, or over plain unicast. Member documents say "mode" or "plane" for the same choice (for example "without the plane"); the bridge's `feed` and `all` are its own modes |
 | topic | a topic manager's name, `tm_<name>`, with its lookup service `ls_<name>`. A topic any user can create carries an entropy suffix chosen once at creation, `tm_<app>_<name>_<suffix>` (for example `tm_bbox_<name>_<suffix>`), and a reader holds the whole name; see [bcommon's registry](https://github.com/lightwebinc/bcommon/blob/main/docs/registry.md) |

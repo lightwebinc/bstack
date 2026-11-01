@@ -70,6 +70,18 @@ interest in an object can buy it more time or a proof that it is still
 held. Incumbent UHRP hosts join unchanged through a UHRP adapter.
 
 
+## Beside the members
+
+Two proofs of concept are built on bcommon and the patterns without being
+members; neither publishes a committed record or runs a host module.
+**bflow** is pay-per-flow: a payer and a payee open a bilateral channel,
+meter a service on both sides, settle the lower of the two cumulatives,
+and commit the usage on chain by Merkle root. **bgateway** carries IP
+packets in batches inside unmined carrier transactions, published once
+onto the object plane and verified by every subscribed router with one
+SPV check per funding tree and one signature per batch. Both repositories
+are private and not under active development.
+
 ## How the members lean on each other
 
 The order is dependency, and it compounds. blogs proves the high-rate

@@ -81,7 +81,7 @@ mechanics and limits.
 
 Each member stands on its own, with its own repository, specification and
 patterns where its problem demands them; the patterns are a shared language, not
-a mould. bfinger shipped first, and it is only that: the first. Repositories are
+a mold. bfinger shipped first, and it is only that: the first. Repositories are
 published as each member ships.
 
 | Member                                            | One line                                                                                                                    | Status                                                   |
@@ -99,6 +99,14 @@ One shared piece sits beside the members:
 | Piece                                             | What it is                                                                                                                                                              | Status                                        |
 | ---------------------------------------------------| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------| -----------------------------------------------|
 | [bcommon](https://github.com/lightwebinc/bcommon) | the Go library, with a TypeScript package for host modules, that carries the machinery members choose to share, and the registry of every member's on-chain identifiers | repository (public); pre-1.0, pin an exact tag |
+
+Two proofs of concept stand beside the members, on the same library and
+patterns, and are not members:
+
+| Project | One line | Status |
+| ------- | -------- | ------ |
+| bflow | pay-per-flow: bilateral payment channels that settle what two independent meters agreed, with usage committed by Merkle root | proof of concept (repository private); not under active development |
+| bgateway | IP packets in batches inside unmined carrier transactions, delivered over the object plane to verifying routers | research prototype (repository private); not under active development |
 
 [docs/family.md](docs/family.md) maps each member to the patterns it
 demonstrates and to the members it leans on.
