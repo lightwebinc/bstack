@@ -92,7 +92,7 @@ published as each member ships.
 | [borg](https://github.com/lightwebinc/borg)       | organizations: membership with real revocation, group changes in an unforgeable order, keys that rotate when someone leaves | repository (public); [Pattern 003](https://1bsv.net/patterns/borg.pdf) |
 | [bsecret](https://github.com/lightwebinc/bsecret) | secrets whose hosts hold only ciphertext, with grants and rotations as facts an auditor verifies | repository (public); [Pattern 004](https://1bsv.net/patterns/bsecret.pdf) |
 | bchat                                             | team chat with a proof on every message, from a terminal or a browser; direct messages and payments ride bbox | built (repository private)                                                       |
-| bstore                                            | storage as a market: publish once, providers compete to hold and serve, readers prove every byte; an existing UHRP host joins through a UHRP adapter | built (repository private)                                                       |
+| [bstore](https://github.com/lightwebinc/bstore)   | storage as a market: publish once, providers compete to hold and serve, readers prove every byte; an existing UHRP host joins through a UHRP adapter | repository (public); [Pattern 006](https://1bsv.net/patterns/bstore.pdf) |
 
 One shared piece sits beside the members:
 
