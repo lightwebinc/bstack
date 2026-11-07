@@ -174,7 +174,7 @@ the module itself:
 | Chain tracker at a bridge's header read API | admission is checked against headers this host received |
 | The topics mounted (the reference host: `OVERLAY_TOPICS`, `OVERLAY_MODULES`) | a module mounts only on topics the host names; a module that cannot be mounted stops the host before its port opens |
 | A bridge in `feed` or `all` mode | `feed` delivers into the engine; `all` also serves the submit facade |
-| The engine's storage | MySQL 26 across the family; the overlay engine has no other SQL dialect yet |
+| The engine's storage | the reference host stores on MySQL (its engine has no other SQL dialect); a Go engine host brings its own store |
 
 Over plain unicast the bridge is optional: the engine's own submit route
 receives objects directly, and its chain tracker still needs a header

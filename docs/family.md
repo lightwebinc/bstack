@@ -21,7 +21,7 @@ The patterns themselves are stated in [patterns.md](patterns.md).
 | [borg](https://github.com/lightwebinc/borg) | organizations: membership as certificates with real revocation, group changes totally ordered by a chain, keys that rotate on removal |
 | [bsecret](https://github.com/lightwebinc/bsecret) | ciphertext-only hosts: grants, versions and rotations as mined facts an auditor verifies against headers alone |
 | bchat | a proof on every message: a company, its auditor and its partner hold the same bytes by construction |
-| bstore | storage as a market: publish once, providers compete to hold, availability proofs as priced questions |
+| [bstore](https://github.com/lightwebinc/bstore) | storage as a market: publish once, providers compete to hold, availability proofs as priced questions |
 
 ## The members
 

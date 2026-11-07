@@ -123,7 +123,7 @@ reference host, which loads a module by path and mounts its topic managers
 and lookup services under their names; and the Go `module` package as an
 engine-neutral contract (topic managers, lookup services, the host a module
 is built against, restore, and ordered replay), which a Go engine host
-compiles in. bfinger ships both; its TypeScript module is built into a
+compiles in. Every member ships both; the TypeScript module is built into a
 single file that imports nothing but `@bsv/sdk`, so it shares the host's
 copy of the SDK.
 
@@ -325,7 +325,7 @@ Its packages line up with the roles:
 | Role | bcommon packages |
 | --- | --- |
 | Publisher | `cbor`, `record`, `commit`, `store`, `pushdrop`, `carrier`, `keyed`, `mint`, `feepolicy`, `funding`, `bwallet`, `wirewallet`, `publish`, `producer`, `chainview`, `unicast`, `nodeapi` |
-| Host module | `@lightwebinc/bcommon` (TypeScript): canonical CBOR, store refs, the reader's derivation, field signatures, the funding and carrier decodes, the engine interfaces a module satisfies; `@lightwebinc/bcommon/host`: the terms route, its budgets, payment acceptance and the payee ledger |
+| Host module | `module` (Go): the engine-neutral contract a Go engine host compiles in; `@lightwebinc/bcommon` (TypeScript): canonical CBOR, store refs, the reader's derivation, field signatures, the funding and carrier decodes, the engine interfaces a module satisfies; `@lightwebinc/bcommon/host`: the terms route, its budgets, payment acceptance and the payee ledger |
 | Reader | `resolve`, `hostset`, `lookup`, `headers`, `verify`, `guard`, `knownkeys`, `chaintoken`, `chirp`, `termsafe`, `sanitize` |
 | Payments | `purse`, `heldpay` (the payer); `payee`, `payeecmd`, `acceptance` (the payee) |
 | Tests | `goldentest`, `testchain` |

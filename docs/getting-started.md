@@ -111,8 +111,8 @@ A member's host side is a module: a topic manager and a lookup service
 written against the released overlay engine's interfaces. The module never
 imports the engine, so it runs on any host built on that engine. A member
 ships the module in TypeScript, for the reference host, or in Go, to the
-`module` contract in bcommon (a Go engine host compiles it in); bfinger
-ships both. The steps below are the TypeScript module's.
+`module` contract in bcommon (a Go engine host compiles it in); every
+member ships both. The steps below are the TypeScript module's.
 
 **Build the module.** Each member's builds the same way; bfinger's builds to one file, with bcommon's
 TypeScript package inlined and `@bsv/sdk` left as a bare import:
