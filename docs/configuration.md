@@ -8,22 +8,25 @@ example; every member reads the same settings from its config file, its
 flags and `<MEMBER>_<KEY>` environment variables (`BFINGER_`, `BBOX_`,
 `BCHAT_`, `BSTORE_`, `BLOGS_`, `BORG_`, `BSECRET_`).
 
-One rule runs through every group: **a setting that decides whom to trust,
-or where objects and questions go, has no default.** A default header
-source would send every verification question to a third party nobody
-chose; a default host or submit endpoint would do the same with lookups
-and objects. Members stop before opening a connection when one is missing,
-rather than discovering it at the first object.
+One rule runs through every group: **a setting that names somebody's
+deployment has no default.** A default host or submit endpoint would send
+lookups and objects to a party nobody chose, so members stop before
+opening a connection when one is missing, rather than discovering it at
+the first object. The chain services are the one exception, on mainnet and
+testnet only: a member with none set reads headers and the chain from
+public WhatsOnChain, every header checked for its proof of work, and
+broadcasts through a public arcade. A service you run is the stronger
+choice for each, and a private chain has no default.
 
 ## At a glance
 
 | Group | Publisher | Host | Reader | Default |
 | --- | --- | --- | --- | --- |
-| [Header source](#header-source) | to check a received payment | always | always | none |
+| [Header source](#header-source) | to check the payments it takes and the proofs it collects | always | always | a member: public WhatsOnChain on mainnet and testnet, none on a private chain; an overlay host: none |
 | [Host set and quorum](#host-set-and-quorum) | no | no | always | the host a domain's manifest names; quorum 1 |
 | [Wallet](#wallet) | always | no | no | the member's embedded wallet |
 | [Topics](#topics) | always | always | through the lookup service name | the member's registered topic |
-| [Submit endpoint and settlement leg](#submit-endpoint-and-settlement-leg) | always | no | no | none |
+| [Submit endpoint and settlement leg](#submit-endpoint-and-settlement-leg) | always | no | no | the submit endpoint: none; the settlement leg: a public arcade on mainnet and testnet |
 | [Lookup routes](#lookup-routes) | no | serves them | always | the base URL plus `/lookup` |
 
 ## Header source
@@ -33,7 +36,7 @@ role names its own source and none takes headers from whoever answered.
 
 | Role | Setting | Notes |
 | --- | --- | --- |
-| Reader | a header read API base URL (bfinger: `header_url`, `-header-url`) | bcommon's `headers` package reads a bridge's `/v1/root/{height}`; a 404 means the height is not held yet, and is kept distinct from an unreachable source |
+| Reader | a header source (bfinger: `header_url`, `-header-url`): a bridge's header read API base URL, a header service (`bhs:URL`, `chaintracks:URL`, `arcade:URL`), or public WhatsOnChain (`woc:main`, `woc:test`), the default on mainnet and testnet | bcommon's `headers` package reads each. A source that serves headers has every header checked for its proof of work; a bridge's `/v1/root/{height}` serves roots alone, where a 404 means the height is not held yet, and is kept distinct from an unreachable source |
 | Host | the engine's chain tracker, pointed at a bridge's header read API | the bridge serves the headers it received on its own header lane |
 | Bridge | an anchor for the initial chain and for gaps, and a minimum-work floor | [overlay-bridge configuration](https://github.com/lightwebinc/overlay-bridge/blob/main/docs/configuration.md): `-header-anchor` must serve `/v1/tip`, `/v1/root/{height}` and `/v1/header/{hash}`; `-header-min-bits` is `0x1d00ffff` on mainnet, and the default floor is for a lab only |
 
@@ -108,12 +111,10 @@ holding coin for two members never mixes them.
 
 A topic is where a member's objects live on a host and on the plane. The
 names follow bcommon's registry: `tm_<name>` for the topic manager and
-`ls_<name>` for the lookup service, and a lab or test topic adds a suffix
-(`tm_<name>_lab`) and is never used in production. A topic that more than
-one independent user can create carries entropy, a random suffix chosen
-once when it is created: `tm_<app>_<name>_<suffix>` (bbox:
-`tm_bbox_<name>_<suffix>`, one per office). bfinger's single topic,
-`tm_finger`, needs none.
+`ls_<name>` for the lookup service. A topic that more than one independent
+user can create carries entropy, a random suffix chosen once when it is
+created: `tm_<app>_<name>_<suffix>` (bbox: `tm_bbox_<name>_<suffix>`, one
+per office). bfinger's single topic, `tm_finger`, needs none.
 
 The same topic name appears in four places, and they must agree:
 
@@ -135,8 +136,8 @@ share a connection.
 | Leg | Setting (bfinger) | Values |
 | --- | --- | --- |
 | Object leg | `facade` | the base URL of a BRC-22 submit route: a bridge's facade, which admits locally and publishes once onto the plane, or, over plain unicast, a host's own submit route |
-| Settlement leg | `settle` | `tcp:<host:port>` (bare Extended Format to an ingress, no acknowledgement), `rpc:<url>` (hex to a node), or `arcade:<url>` (an arcade installation, which reports a refusal before anything is published) |
-| Proofs | `rpc`, `asset`, `proofs` | a node's RPC and asset API; `proofs = wait` publishes once the transaction is mined, `proofs = async` publishes when the network accepts it and collects the proof later, and needs a leg that answers |
+| Settlement leg | `settle` | `arcade:main` or `arcade:test` (a public arcade, the default on mainnet and testnet), `arcade:<url>` (an arcade installation, which reports a refusal before anything is published), `arc:<url>` (an ARC installation), `rpc:<url>` (hex to a node), or `tcp:<host:port>` (bare Extended Format to an ingress, no acknowledgement) |
+| Proofs | `chain`, `proofs` | the chain view transactions, proofs and spends are read from: public WhatsOnChain by default on mainnet and testnet, or a node's asset API (`asset:<url>`); `proofs = wait` publishes once the transaction is mined, `proofs = async` publishes when the network accepts it and collects the proof later, and needs a leg that answers |
 
 On the host side, the bridge's facade is `-edge-ingress` (the delivery
 slot's inner addresses, in failover order) and `-publish-source`; see the
@@ -165,7 +166,7 @@ with one question per POST.
 
 ## Running a host
 
-A host that runs a member's module on the plane needs four things beside
+A host that runs a member's module on the plane needs five things beside
 the module itself:
 
 | Setting | Why |
@@ -193,7 +194,7 @@ source the operator chose.
 
 | Member | Configuration reference |
 | --- | --- |
-| bfinger (repository, public) | [user guide, section 3](https://github.com/lightwebinc/bfinger/blob/main/docs/user-guide.md): the config file and its search order; [examples, configuration keys](https://github.com/lightwebinc/bfinger/blob/main/docs/examples.md): every key, its flag, default and who needs it; [host/README.md](https://github.com/lightwebinc/bfinger/blob/main/host/README.md): deploying the host modules, which have no configuration of their own |
+| bfinger (repository, public) | [user guide, section 3](https://github.com/lightwebinc/bfinger/blob/main/docs/user-guide.md): the config file and its search order; [docs/configuration.md](https://github.com/lightwebinc/bfinger/blob/main/docs/configuration.md): every key, its flag, default and who needs it; [host/README.md](https://github.com/lightwebinc/bfinger/blob/main/host/README.md): deploying the host modules, which have no configuration of their own |
 | bbox (repository, public) | [docs/configuration.md](https://github.com/lightwebinc/bbox/blob/main/docs/configuration.md): the config file, every key and flag, `BBOX_<KEY>`, the container image; [docs/host.md](https://github.com/lightwebinc/bbox/blob/main/docs/host.md): the host module |
 | bchat (repository private), [bstore](https://github.com/lightwebinc/bstore), [borg](https://github.com/lightwebinc/borg), [bsecret](https://github.com/lightwebinc/bsecret) and [blogs](https://github.com/lightwebinc/blogs) | each has the same `docs/configuration.md` and `docs/host.md`, published with its repository |
 | bcommon (repository, public) | [docs/host-module.md](https://github.com/lightwebinc/bcommon/blob/main/docs/host-module.md): the terms route, budgets, payment acceptance and state directory every host module shares; [docs/registry.md](https://github.com/lightwebinc/bcommon/blob/main/docs/registry.md): every member's protocols, tags, magic, topics and baskets; [docs/versioning.md](https://github.com/lightwebinc/bcommon/blob/main/docs/versioning.md): pinning one tag in Go and TypeScript; [docs/dependencies.md](https://github.com/lightwebinc/bcommon/blob/main/docs/dependencies.md): the single dependency and its exact version |

@@ -38,12 +38,12 @@ same moment; one anchor per interval commits the set, so any archive
 proves completeness and any auditor proves time. A dropped batch is a
 numbered hole filled from a sibling. Many producers, no coordinator.
 
-**bbox** is the message box the rest of the family leans on: envelopes
-addressed to a recipient, replicated by the plane instead of parked on
-one server, retired by receipts, priced structurally by postage. A
-payment can travel inside an envelope and settle when the recipient
-claims it, which is what gives every other member its payment notices and
-releases.
+**bbox** is the family's message box: envelopes addressed to a recipient,
+replicated by the plane instead of parked on one server, retired by
+receipts, priced structurally by postage. A payment can travel inside an
+envelope and settle when the recipient claims it. bchat's direct messages
+and payments ride it; carrying the other members' payment notices and
+releases is designed.
 
 **borg** gives the family its organizations: membership as certificates
 that can actually be revoked, every change to a group recorded on that
@@ -67,7 +67,9 @@ messages and payments ride bbox.
 wire once; providers that subscribe to the bucket decide whether to hold
 it, advertise their holding, and race for a bounty; anyone with an
 interest in an object can buy it more time or a proof that it is still
-held. Incumbent UHRP hosts join unchanged through a UHRP adapter.
+held. Incumbent UHRP hosts join unchanged through
+[bstore-bridge](https://github.com/lightwebinc/bstore-bridge),
+which runs bstore's provider in front of one.
 
 
 ## Beside the members
@@ -84,12 +86,13 @@ are private and not under active development.
 
 ## How the members lean on each other
 
-The order is dependency, and it compounds. blogs proves the high-rate
-pattern the later members reuse. bbox gives releases and payment notices
-a transport, and builds the paying client once. borg gives bsecret its
-membership, ordering and key rotation, and bchat its organizations and
-private channel keys; bchat's direct messages and payments travel by
-bbox.
+The order is dependency, and it compounds. Every member is built on
+bcommon, where the paying client and the payee side of a priced question
+are built once. blogs proves the high-rate pattern the later members
+reuse. bbox gives releases and payment notices a transport. borg gives
+bsecret its membership, ordering and key rotation, and bchat its
+organizations and private channel keys; bchat's direct messages and
+payments travel by bbox. bstore-bridge is built on bstore.
 
 bfinger is live, and it is the first, not the template. Each member
 stands on its own: its own repository, published when it ships, carrying
