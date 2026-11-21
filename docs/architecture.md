@@ -42,7 +42,7 @@ without anyone reconfiguring anything.
 
 | Role | Holds | Talks to | Never needs |
 | --- | --- | --- | --- |
-| Publisher | its keys, its coin, the secrets its records commit to | a settlement leg, a node for proofs, one submit endpoint | any host's lookup route, any reader |
+| Publisher | its keys, its coin, the secrets its records commit to | a settlement leg, a chain view for proofs, one submit endpoint | any host's lookup route, any reader |
 | Plane | nothing of record | publishers at ingress, subscribed hosts at egress | to parse past an object's leading marker |
 | Host | the admitted objects, indexed per topic | the plane (or publishers, over unicast), readers, its header source | another host |
 | Reader | a header source it chose, and, where a member pins keys, its pin file | a domain's discovery documents, any host, its header source | the publisher |
@@ -264,13 +264,16 @@ supplied both the claim and the yardstick.
 | --- | --- |
 | Overlay host | its chain tracker, pointed at a bridge's header read API |
 | Bridge | its own header lane, checked against a minimum-work floor, anchored and re-anchored from a header service its operator trusts |
-| Reader | a header source it names itself; bcommon's `headers` package is a chain tracker over a bridge's header read API |
+| Reader | a header source it names itself, or the member's default on mainnet and testnet; bcommon's `headers` package is a chain tracker over a bridge's header read API, a header service or public WhatsOnChain |
 
 Three rules hold everywhere:
 
-- **No default.** A header source, a host and a submit endpoint have no
-  default in any member, because a default would send verification
-  questions, or objects, to a party nobody chose.
+- **No default deployment.** A host and a submit endpoint have no default
+  in any member, because a default would send questions, or objects, to a
+  party nobody chose. A member's header source defaults, on mainnet and
+  testnet only, to public WhatsOnChain, every header checked for its proof
+  of work; an overlay host's has no default. A source you run is the
+  stronger choice, and a named one always wins.
 - **Not found is not an error.** A header source that does not yet hold a
   height answers 404, and that is distinct from an unreachable one;
   collapsing the two would make an outage look exactly like a forged
@@ -325,8 +328,8 @@ Its packages line up with the roles:
 | Role | bcommon packages |
 | --- | --- |
 | Publisher | `cbor`, `record`, `commit`, `store`, `pushdrop`, `carrier`, `keyed`, `mint`, `feepolicy`, `funding`, `bwallet`, `wirewallet`, `publish`, `producer`, `chainview`, `unicast`, `nodeapi` |
-| Host module | `module` (Go): the engine-neutral contract a Go engine host compiles in; `@lightwebinc/bcommon` (TypeScript): canonical CBOR, store refs, the reader's derivation, field signatures, the funding and carrier decodes, the engine interfaces a module satisfies; `@lightwebinc/bcommon/host`: the terms route, its budgets, payment acceptance and the payee ledger |
-| Reader | `resolve`, `hostset`, `lookup`, `headers`, `verify`, `guard`, `knownkeys`, `chaintoken`, `chirp`, `termsafe`, `sanitize` |
+| Host module | `module` (Go): the engine-neutral contract a Go engine host compiles in, with `replay` (the walk behind a module's ordered replay) and `termsroute` (the terms route in Go); `@lightwebinc/bcommon` (TypeScript): canonical CBOR, store refs, the reader's derivation, field signatures, the funding and carrier decodes, the engine interfaces a module satisfies; `@lightwebinc/bcommon/host`: the terms route, its budgets, payment acceptance and the payee ledger |
+| Reader | `resolve`, `hostset`, `lookup`, `headers`, `verify`, `guard`, `knownkeys`, `chaintoken`, `chirp`, `termsafe`, `sanitize`, `authz` |
 | Payments | `purse`, `heldpay` (the payer); `payee`, `payeecmd`, `acceptance` (the payee) |
 | Tests | `goldentest`, `testchain` |
 
@@ -365,6 +368,6 @@ Some words mean different things in different members' documents.
 | Term | Meanings |
 | --- | --- |
 | gateway | bgateway's IP gateway, carrying packets in batches over the plane (a proof of concept beside the family, not a member); bstore's S3 gateway, which speaks the S3 API in front of a bucket; blogs' read gateway, which serves the Loki API to Grafana and other Loki clients, marking every line verified or not |
-| bridge | [overlay-bridge](https://github.com/lightwebinc/overlay-bridge), the plane-to-overlay bridge that feeds delivered objects to an engine and serves the submit facade and header read API; distinct from a UHRP adapter, which lets an existing UHRP host join bstore unchanged |
+| bridge | [overlay-bridge](https://github.com/lightwebinc/overlay-bridge), the plane-to-overlay bridge that feeds delivered objects to an engine and serves the submit facade and header read API; distinct from [bstore-bridge](https://github.com/lightwebinc/bstore-bridge), the UHRP adapter that lets an existing UHRP host join bstore unchanged |
 | posture | bstack's word for how a member runs: on the plane, or over plain unicast. Member documents say "mode" or "plane" for the same choice (for example "without the plane"); the bridge's `feed` and `all` are its own modes |
 | topic | a topic manager's name, `tm_<name>`, with its lookup service `ls_<name>`. A topic any user can create carries an entropy suffix chosen once at creation, `tm_<app>_<name>_<suffix>` (for example `tm_bbox_<name>_<suffix>`), and a reader holds the whole name; see [bcommon's registry](https://github.com/lightwebinc/bcommon/blob/main/docs/registry.md) |

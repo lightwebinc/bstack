@@ -6,8 +6,8 @@ a new member to the family. Each member works the same way: its own
 command reads and publishes, its config file, flags and `<MEMBER>_<KEY>`
 environment variables (`BFINGER_`, `BBOX_`, and so on) carry the settings,
 and its host module mounts on an overlay host. bfinger is the worked example
-below because it is live on mainnet with a public host; bbox, the other
-public member, follows the same steps in its
+below because it is live on mainnet with a public host; the other public
+members follow the same steps, bbox for one in its
 [user guide](https://github.com/lightwebinc/bbox/blob/main/docs/user-guide.md)
 and [configuration](https://github.com/lightwebinc/bbox/blob/main/docs/configuration.md).
 Each step links to the member's own documentation rather than repeating it.
@@ -17,8 +17,10 @@ every setting named here is in [configuration.md](configuration.md).
 
 ## 1. Read a record end to end
 
-A reader needs one thing configured: a header source it chose. Everything
-else is found from the name.
+A reader on mainnet needs nothing configured: everything is found from the
+name, and proofs are checked against the member's default header source,
+public WhatsOnChain. Name a header source you chose to check them against
+headers you received yourself:
 
 ```console
 $ go build ./cmd/bfinger
@@ -60,9 +62,10 @@ shows every command with the output it really prints.
 
 ## 2. Publish a record
 
-A publisher needs three endpoints and some coin: a submit endpoint for the
-object leg, a settlement leg for the mined transactions, and a node for
-proofs.
+A publisher needs a submit endpoint for the object leg, and some coin. On
+mainnet and testnet the settlement leg and the chain view that answers for
+proofs default to public services; the configuration below names a
+deployment's own instead, with a node:
 
 ```
 # ~/.bfinger/config
@@ -95,15 +98,16 @@ can always read you by identity key instead.
 
 | Next | Where |
 | --- | --- |
-| Not waiting a block per change (`settle = arcade:<url>`, `proofs = async`) | [user guide, section 3](https://github.com/lightwebinc/bfinger/blob/main/docs/user-guide.md) |
-| Signing through a BRC-100 wallet on this machine (`wallet = wire`) | [user guide, section 3](https://github.com/lightwebinc/bfinger/blob/main/docs/user-guide.md) |
+| Not waiting a block per change (`proofs = async`, over an arcade or ARC leg) | [user guide, section 8](https://github.com/lightwebinc/bfinger/blob/main/docs/user-guide.md) |
+| Signing through a BRC-100 wallet on this machine (`wallet = wire`) | [user guide, section 8](https://github.com/lightwebinc/bfinger/blob/main/docs/user-guide.md) |
 | The manifest and resolve documents, field by field | [user guide, section 9](https://github.com/lightwebinc/bfinger/blob/main/docs/user-guide.md) |
 | Rotating a key, retiring, and the kill switch | [user guide](https://github.com/lightwebinc/bfinger/blob/main/docs/user-guide.md), [owner flow](https://github.com/lightwebinc/bfinger/blob/main/docs/owner-flow.md) |
 | Paying someone you just looked up (`bfinger pay`) | [user guide, section 10](https://github.com/lightwebinc/bfinger/blob/main/docs/user-guide.md) |
 
-`fund` fills the wallet by mining coinbase, so it works only on a chain you
-control. On any other chain the wallet is filled by `receive` and by change
-from your own transactions.
+On mainnet and testnet the wallet is also filled by paying its fund address
+from your own wallet and importing that payment (`fund -txid`,
+`fund -beef`). `fund` alone mines coinbase, so it works only on a regtest
+chain you run.
 
 ## 3. Run a host module on an overlay host
 
@@ -131,7 +135,7 @@ module file:
 
 ```
 OVERLAY_TOPICS=tm_anytx,tm_finger
-OVERLAY_MODULES=/app/modules/bfinger/index.js
+OVERLAY_MODULES=/app/modules/finger/index.js
 ```
 
 On a host with no module loader, the host's own startup code calls the
@@ -201,7 +205,8 @@ built.
 9. **The levers deliberately not taken,** and what each would open.
 
 Two constraints hold for every member: the base answer is free on every
-conforming host, and nothing that decides trust or egress has a default.
+conforming host, and no setting that names somebody's deployment has a
+default.
 
 ### Register the member's identifiers
 
@@ -216,10 +221,12 @@ in the same change that adds them to its code:
 | Key ids | fixed strings recorded, or the shape of a per-object id described |
 | Tag | a two-byte ASCII prefix owned by one member, plus one type byte it assigns |
 | Record magic | the member's tag prefix, a letter and a version byte |
-| Topic and lookup service | `tm_<name>` and `ls_<name>`; a topic any user can create carries a random suffix, `tm_<app>_<name>_<suffix>`; a lab topic adds a suffix and never reaches production |
+| Topic and lookup service | `tm_<name>` and `ls_<name>`; a topic any user can create carries a random suffix, `tm_<app>_<name>_<suffix>` |
 | Baskets | start with the member's name |
 
-A reviewer checks the new rows against every existing one. A collision is
+Certificate types, domain strings and permission service labels are
+registered there too, by the registry's own rules. A reviewer checks the
+new rows against every existing one. A collision is
 not cosmetic: two members deriving under one protocol derive the same keys,
 and two members sharing a tag are indistinguishable to a topic manager.
 
