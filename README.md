@@ -93,6 +93,8 @@ published as each member ships.
 | [bsecret](https://github.com/lightwebinc/bsecret) | secrets whose hosts hold only ciphertext, with grants and rotations as facts an auditor verifies | repository (public); [Pattern 004](https://1bsv.net/patterns/bsecret.pdf) |
 | bchat                                             | team chat with a proof on every message, from a terminal or a browser; direct messages and payments ride bbox | built (repository private)                                                       |
 | [bstore](https://github.com/lightwebinc/bstore)   | storage as a market: publish once, providers compete to hold and serve, readers prove every byte; an existing UHRP host joins through [bstore-bridge](https://github.com/lightwebinc/bstore-bridge) | repository (public); [Pattern 006](https://1bsv.net/patterns/bstore.pdf) |
+| [bweb](https://github.com/lightwebinc/bweb)       | a web origin whose servers compete: publish a site once, every web server proves every byte before it answers a browser, and servers race to host it, paid on proof | repository (public); [Pattern 007](https://1bsv.net/patterns/bweb.pdf) |
+| [bdns](https://github.com/lightwebinc/bdns)       | a DNS zone its owner signs and every nameserver proves before it answers; a website's name answers only the servers its owner's rule admits | repository (public); [Pattern 008](https://1bsv.net/patterns/bdns.pdf) |
 
 One shared piece sits beside the members:
 
